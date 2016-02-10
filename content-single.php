@@ -8,15 +8,12 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<?php
-	if ( '' != get_the_post_thumbnail() ) :
-		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
-	?>
+	<?php if ( has_post_thumbnail() ) : ?>
 	<div class="entry-image">
-		<img class="featured-image" src="<?php echo $thumbnail[0]; ?>" alt="">
+		<?php the_post_thumbnail( 'large', array( 'class' => 'featured-image' ) ); ?>
 	</div>
-
 	<?php endif; ?>
+
 	<header class="entry-header">
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 
@@ -26,7 +23,7 @@
 		</div><!-- .entry-meta -->
 		<?php endif; ?>
 
-		<?php if ( comments_open() || ( '0' != get_comments_number() && ! comments_open() ) ) : ?>
+		<?php if ( ( comments_open() || ( '0' != get_comments_number() && ! comments_open() ) ) && ! post_password_required() ) : ?>
 		<p class="comments-link"><?php comments_popup_link( '<span class="no-reply">' . __( '0', 'reddle' ) . '</span>', __( '1', 'reddle' ), __( '%', 'reddle' ) ); ?></p>
 		<?php endif; ?>
 	</header><!-- .entry-header -->

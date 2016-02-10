@@ -27,7 +27,7 @@
  */
 if ( ! isset( $content_width ) )
 	$content_width = 440; /* pixels */
-	
+
 /**
  * Adjusts content_width value for when there are no active widgets in the
  * sidebar.
@@ -103,6 +103,8 @@ add_action( 'after_setup_theme', 'reddle_setup' );
  */
 function reddle_scripts() {
 	wp_enqueue_style( 'reddle-style', get_stylesheet_uri() );
+
+	wp_enqueue_script( 'reddle-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151026', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -200,7 +202,7 @@ function reddle_widgets_init() {
 		'after_title'   => '</h1>',
 	) );
 }
-add_action( 'init', 'reddle_widgets_init' );
+add_action( 'widgets_init', 'reddle_widgets_init' );
 
 /**
  * Add some useful default widgets to the Reddle sidebar
@@ -240,7 +242,7 @@ function reddle_content_nav( $nav_id ) {
 	global $wp_query;
 
 	?>
-	<nav id="<?php echo $nav_id; ?>">
+	<nav id="<?php echo esc_attr( $nav_id ); ?>">
 		<h1 class="assistive-text section-heading"><?php _e( 'Post navigation', 'reddle' ); ?></h1>
 
 	<?php if ( is_single() ) : // navigation links for single posts ?>
@@ -283,7 +285,7 @@ function reddle_comment( $comment, $args, $depth ) {
 	if ( 'pingback' == $comment->comment_type || 'trackback' == $comment->comment_type ) : ?>
 
 	<li class="post pingback">
-		<p><?php _e( 'Pingback:', 'reddle' ); ?> <?php comment_author_link(); ?><?php edit_comment_link( __( '[Edit]', 'reddle' ), ' ' ); ?></p>
+		<p><?php _e( 'Pingback:', 'reddle' ); ?> <?php comment_author_link(); ?><?php edit_comment_link( __( 'Edit', 'reddle' ), ' ' ); ?></p>
 
 	<?php else: ?>
 
@@ -306,7 +308,7 @@ function reddle_comment( $comment, $args, $depth ) {
 					<a class="comment-time" href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>"><time pubdate datetime="<?php comment_time( 'c' ); ?>">
 					<?php printf(  _x( '%1$s at %2$s', '1: date, 2: time', 'reddle' ), get_comment_date(), get_comment_time() ); ?>
 					</time></a>
-					<?php edit_comment_link( __( '[Edit]', 'reddle' ), ' ' ); ?>
+					<?php edit_comment_link( __( 'Edit', 'reddle' ), ' ' ); ?>
 				</div><!-- .comment-meta .commentmetadata -->
 			</footer>
 
@@ -575,11 +577,9 @@ add_filter( 'wp_title', 'reddle_wp_title', 10, 2 );
 require get_template_directory() . '/inc/custom-header.php';
 
 /**
- * Load WP.com compatibility file.
+ * Load Jetpack compatibility file.
  */
-if ( file_exists( get_template_directory() . '/inc/wpcom.php' ) )
-	require get_template_directory() . '/inc/wpcom.php';
+if ( file_exists( get_template_directory() . '/inc/jetpack.php' ) )
+	require get_template_directory() . '/inc/jetpack.php';
 
-/**
- * This theme was built with PHP, Semantic HTML, CSS, love, and a Reddle.
- */
+

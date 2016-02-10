@@ -15,23 +15,24 @@ $first_image = isset( $matches[1][0] ) ? $matches[1][0] : '';
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php
-		if ( '' != get_the_post_thumbnail() || ! empty( $first_image )  ) :
-			if ( '' != get_the_post_thumbnail() ) :
-				$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
+		if ( has_post_thumbnail() || ! empty( $first_image )  ) :
+			if ( has_post_thumbnail() ) :
 	?>
-	<div class="entry-image">
-		<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'reddle' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
-			<img class="featured-image" src="<?php echo $thumbnail[0]; ?>" alt="">
-		</a>
-	</div>
 
-	<?php elseif ( ! empty( $first_image ) && ! is_search() ) : ?>
+	<figure class="entry-image">
+		<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'reddle' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
+			<?php the_post_thumbnail( 'large', array( 'class' => 'featured-image' ) ); ?>
+		</a>
+	</figure>
+
+		<?php elseif ( ! empty( $first_image ) && ! is_search() ) : ?>
 
 	<figure class="entry-image">
 		<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'reddle' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
 			<img class="featured-image" src="<?php echo esc_url( $first_image ); ?>" alt="" />
 		</a>
 	</figure>
+
 	<?php
 			endif; // ! empty( $first_image ) && ! is_search()
 		endif; // '' != get_the_post_thumbnail() || ! empty( $first_image )
@@ -46,7 +47,7 @@ $first_image = isset( $matches[1][0] ) ? $matches[1][0] : '';
 		</div><!-- .entry-meta -->
 		<?php endif; ?>
 
-		<?php if ( comments_open() || ( '0' != get_comments_number() && ! comments_open() ) ) : ?>
+		<?php if ( ( comments_open() || ( '0' != get_comments_number() && ! comments_open() ) ) && ! post_password_required() ) : ?>
 		<p class="comments-link"><?php comments_popup_link( '<span class="no-reply">' . __( '0', 'reddle' ) . '</span>', __( '1', 'reddle' ), __( '%', 'reddle' ) ); ?></p>
 		<?php endif; ?>
 	</header><!-- .entry-header -->

@@ -23,7 +23,7 @@
 			<?php do_action( 'reddle_credits' ); ?>
 			<a href="<?php echo esc_url( __( 'http://wordpress.org/', 'reddle' ) ); ?>" title="<?php esc_attr_e( 'A Semantic Personal Publishing Platform', 'reddle' ); ?>" rel="generator"><?php printf( __( 'Proudly powered by %s', 'reddle' ), 'WordPress' ); ?></a>
 			<span class="sep"> | </span>
-			<?php printf( __( 'Theme: %1$s by %2$s.', 'reddle' ), 'Reddle', '<a href="http://automattic.com/" rel="designer">Automattic</a>' ); ?>
+			<?php printf( __( 'Theme: %1$s by %2$s.', 'reddle' ), 'Reddle', '<a href="http://wordpress.com/themes/reddle/" rel="designer">WordPress.com</a>' ); ?>
 		</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->

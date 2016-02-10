@@ -42,10 +42,10 @@
 
 		<?php if ( has_nav_menu( 'primary' ) ) : ?>
 		<nav id="access" role="navigation">
-			<h1 class="assistive-text section-heading"><?php _e( 'Main menu', 'reddle' ); ?></h1>
 			<div class="skip-link assistive-text"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'reddle' ); ?>"><?php _e( 'Skip to content', 'reddle' ); ?></a></div>
 
-			<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
+			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Main menu', 'reddle' ); ?></button>
+			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
 		</nav><!-- #access -->
 		<?php endif; ?>
 	</header><!-- #masthead -->
